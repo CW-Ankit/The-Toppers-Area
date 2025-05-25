@@ -43,7 +43,7 @@ export default function Navbar() {
                     {!isAuthenticated ? (
                         <>
                             <Button variant="outline" onClick={() => router.push('/login')}>Login</Button>
-                            <Button onClick={() => router.push('/signup')}>Create Account</Button>
+                            <Button onClick={() => router.push('/register')}>Create Account</Button>
                         </>
                     ) : (
                         <Button onClick={() => router.push('/dashboard')}>Dashboard</Button>
