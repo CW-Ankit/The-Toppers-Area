@@ -8,7 +8,7 @@ export default async function ProtectedIndex() {
     <div className="min-h-[70vh] container py-10">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Dashboard</h1>
-        <form action="/auth/signout" method="post">
+        <form action="/api/auth/signout" method="post">
           <button className="text-sm text-red-600">Sign out</button>
         </form>
       </div>
