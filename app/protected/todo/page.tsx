@@ -21,7 +21,10 @@ export default function TodoPage() {
 
   const add = async () => {
     if (!text.trim()) return
-    const { data, error } = await supabase.from('todos').insert({ title: text }).select().single()
+    const { data: userRes } = await supabase.auth.getUser()
+    const user_id = userRes.user?.id
+    if (!user_id) return
+    const { data, error } = await supabase.from('todos').insert({ title: text, user_id }).select().single()
     if (!error && data) setItems(prev => [data as any, ...prev])
     setText('')
   }

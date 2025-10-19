@@ -20,7 +20,10 @@ export default function NotesPage() {
 
   const add = async () => {
     if (!text.trim()) return
-    const { data } = await supabase.from('notes').insert({ content: text }).select().single()
+    const { data: userRes } = await supabase.auth.getUser()
+    const user_id = userRes.user?.id
+    if (!user_id) return
+    const { data } = await supabase.from('notes').insert({ content: text, user_id }).select().single()
     if (data) setNotes(prev => [data as any, ...prev])
     setText('')
   }

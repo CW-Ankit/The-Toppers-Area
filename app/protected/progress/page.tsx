@@ -9,15 +9,18 @@ export default function ProgressPage() {
 
   useEffect(() => {
     const load = async () => {
-      const { data } = await supabase.from('progress').select('percent').single()
-      if (data?.percent != null) setPercent(data.percent)
+      const { data, error } = await supabase.from('progress').select('percent').single()
+      if (!error && data?.percent != null) setPercent(data.percent)
     }
     load()
   }, [])
 
   const save = async (value: number) => {
     setPercent(value)
-    await supabase.from('progress').upsert({ id: 1, percent: value })
+    const { data: userRes } = await supabase.auth.getUser()
+    const user_id = userRes.user?.id
+    if (!user_id) return
+    await supabase.from('progress').upsert({ user_id, percent: value })
   }
 
   return (
