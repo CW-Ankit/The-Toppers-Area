@@ -1,4 +1,5 @@
 // /middleware.ts
+export const runtime = 'nodejs'
 import { NextRequest } from 'next/server'
 import { updateSession } from '@/utils/supabase/supabaseMiddleware'
 
