@@ -1,15 +1,11 @@
 // /middleware.ts
-import { createMiddlewareClient } from '@supabase/ssr';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server'
+import { updateSession } from '@/utils/supabase/supabaseMiddleware'
 
-export async function middleware(req: NextRequest) {
-    const res = NextResponse.next();
-    const supabase = createMiddlewareClient({ req, res });
-
-    await supabase.auth.getSession(); // optional but recommended
-    return res;
+export async function middleware(request: NextRequest) {
+  return updateSession(request)
 }
 
 export const config = {
-    matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-};
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+}
